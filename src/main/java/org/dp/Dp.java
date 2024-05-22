@@ -64,3 +64,19 @@ class LCS{
         return dp[0][0];
     }
 }
+
+class ClimbingStairs{
+    public static void main(String[] args) {
+        System.out.println(climbStairs(5));
+    }
+    //SC: O(n) TC: O(n)
+    private static int climbStairs(final int n){
+        int[] dp = new int[n+1];
+        dp[n] = 1;
+        dp[n-1]=1;
+        for(int i=n-2;i>=0;i--){
+            dp[i]=dp[i+2]+dp[i+1];
+        }
+        return dp[0];
+    }
+}
