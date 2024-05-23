@@ -12,7 +12,16 @@ public class SubSeq {
         char ch = up.charAt(0);
         subSeq(p+ch,up.substring(1));
         subSeq(p,up.substring(1));
-
+    }
+    static int subSeqCount(String p,String up){
+        if(up.isEmpty()){
+            System.out.println(p);
+            return 1;
+        }
+        char ch = up.charAt(0);
+        int left = subSeqCount(p+ch,up.substring(1));
+        int right = subSeqCount(p,up.substring(1));
+        return left+right;
     }
     //Using Return
     static ArrayList<String> list = new ArrayList<>();
@@ -41,7 +50,8 @@ public class SubSeq {
     }
     public static void main(String[] args) {
 //        subSeq("","abc");
-//        System.out.println(subSeq2("","abc",list));
+//        System.out.println(subSeqCount("","abc"));
+        System.out.println(subSeq2("","abc",list));
         System.out.println(subSeqRet("","abc"));
     }
 }

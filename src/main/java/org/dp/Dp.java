@@ -1,10 +1,14 @@
 package org.dp;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Dp {
     public static void main(String[] args) {
 //        System.out.println(fibonacci(10));
 //        System.out.println(fibonacciTopDown(7));
-        System.out.println(fibonacciBottomUp(7));
+        System.out.println(fibonaccii(7));
+//        System.out.println(fibonacciBottomUp(7));
     }
     //Recursive call O(2^n)
     private static long fibonacci(int i) {
@@ -14,6 +18,19 @@ public class Dp {
     //Memoization: Storing the result in cache to use later if needed
     //Top-Down
     //O(n)
+    private static Map<Integer, Integer> memo = new HashMap<>();
+
+    public static int fibonaccii(int n) {
+        if (n <= 1) {
+            return n;
+        }
+        if (memo.containsKey(n)) {
+            return memo.get(n);
+        }
+        int result =  fibonaccii(n-1) + fibonaccii(n-2);
+        memo.put(n, result);
+        return result;
+    }
     private static long fibonacciTopDown(int n){
         return fibonacciTopDownHelper(n,new long[n+1]);
     }
@@ -27,7 +44,9 @@ public class Dp {
         return memo[n];
     }
 
-    //Bottom-Up
+    //Tabulation
+    //Bottom-Up : Table is created from bottom-up
+
     private static long fibonacciBottomUp(int n){
         if(n<2) return n;
         long[] dp = new long[n+1];
