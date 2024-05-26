@@ -72,18 +72,28 @@ public class SLL {
         }
         return prev;
     }
+    /*
+    To reverse a ll using recursion
+    1->2-3->null
+    solve  2->3->null
+    solve    3->null
+    Now head->next==null so return newHead= 3 ,so 3->null return |3|
+     call comes back here:     2 -> 3       --     x<-2<-3    and return newHead=3 so 3->2->x is returned
+                             head  front
+     call come here   x<-2<-3 = reverse(1.next) so curr=1
+                    front(2)=1->next     1-> 2<-3  front.next=curr   1<-2<-3 curr.next=null x<-1<-2<-3 return newHead=3
+                                         /
+                                        x
+     */
     private static Node recursiveReverse(Node curr){
         if(curr==null || curr.next==null){
             return curr;
         }
-        System.out.println(curr);
         Node newHead = recursiveReverse(curr.next);
-        System.out.println(curr);
         Node front = curr.next;
         front.next=curr;
         curr.next=null;
         return newHead;
-
     }
     private static int middle(Node temp){
         Node slow=temp;
@@ -93,6 +103,18 @@ public class SLL {
             slow=slow.next;
         }
         return slow.value;
+    }
+    private static Node swapPairs(Node head) {
+        Node slow=head;
+        Node fast=slow.next;
+        while(fast!=null && slow!=null){
+            int curr = slow.value;
+            slow.value=fast.value;
+            fast.value=curr;
+            fast=fast.next.next;
+            slow=slow.next.next;
+        }
+        return head;
     }
     public static void main(String[] args) {
         SLL newlist = new SLL();
@@ -104,6 +126,7 @@ public class SLL {
         second.add(1);
         second.add(2);
         second.add(3);
+        second.add(4);
         display(newlist.head);
         display(second.head);
 //        System.out.println(newlist.length());
@@ -113,8 +136,10 @@ public class SLL {
 //        System.out.println(newlist.search(40));
 //        Node temp = reverse(newlist.head);
 //        display(temp);
-        System.out.println(middle(newlist.head));
-        System.out.println(middle(second.head));
-        display(recursiveReverse(second.head));
+//        System.out.println(middle(newlist.head));
+//        System.out.println(middle(second.head));
+//        display(recursiveReverse(second.head));
+        display(swapPairs(newlist.head));
+        display(swapPairs(second.head));
     }
 }
