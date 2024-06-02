@@ -94,18 +94,53 @@ public class SLL {
         }
         return slow.value;
     }
+    private static boolean cycle(Node head){
+        if(head==null || head.next==null){
+            return false;
+        }
+        Node slow=head;
+        Node fast=head;
+        while(fast!=null && fast.next != null){
+            slow=slow.next;
+            fast=fast.next.next;
+            if(slow==fast){
+                return true;
+            }
+        }
+        return false;
+    }
+    private static int findStartofLoop(Node head){
+        if(head==null || head.next==null){
+            return -1;
+        }
+        Node slow=head;
+        Node fast=head;
+        Node temp=head;
+        while(fast!=null && fast.next != null){
+            slow=slow.next;
+            fast=fast.next.next;
+            if(slow==fast){
+                break;
+            }
+        }
+        while(temp!=slow){
+            temp=temp.next;
+            slow=slow.next;
+        }
+        return temp.value;
+    }
     public static void main(String[] args) {
-        SLL newlist = new SLL();
-        SLL second = new SLL();
-        newlist.add(10);
-        newlist.add(20);
-        newlist.add(30);
-        newlist.add(40);
-        second.add(1);
-        second.add(2);
-        second.add(3);
-        display(newlist.head);
-        display(second.head);
+//        SLL newlist = new SLL();
+//        SLL second = new SLL();
+//        newlist.add(10);
+//        newlist.add(20);
+//        newlist.add(30);
+//        newlist.add(40);
+//        second.add(1);
+//        second.add(2);
+//        second.add(3);
+//        display(newlist.head);
+//        display(second.head);
 //        System.out.println(newlist.length());
 //        newlist.delete(2);
 //        display(newlist.head);
@@ -113,8 +148,18 @@ public class SLL {
 //        System.out.println(newlist.search(40));
 //        Node temp = reverse(newlist.head);
 //        display(temp);
-        System.out.println(middle(newlist.head));
-        System.out.println(middle(second.head));
-        display(recursiveReverse(second.head));
+//        System.out.println(middle(newlist.head));
+//        System.out.println(middle(second.head));
+//        display(recursiveReverse(second.head));
+        //for testing cycle in list
+        SLL cyclic = new SLL();
+        cyclic.add(10);
+        cyclic.add(20);
+        cyclic.add(30);
+        cyclic.add(40);
+        System.out.println(cycle(cyclic.head));
+        cyclic.head.next.next.next.next=cyclic.head.next;
+        System.out.println(cycle(cyclic.head));
+        System.out.println(findStartofLoop(cyclic.head));
     }
 }
