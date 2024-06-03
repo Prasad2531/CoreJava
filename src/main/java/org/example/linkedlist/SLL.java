@@ -110,19 +110,37 @@ public class SLL {
         }
         return slow;
     }
-
-    private static Node swapPairs(Node head) {
+    private static Node reverseFromMiddle(Node head){
         Node slow = head;
-        Node fast = slow.next;
-        while (fast != null && slow != null) {
-            int curr = slow.value;
-            slow.value = fast.value;
-            fast.value = curr;
+        Node fast = head;
+        while (fast != null && fast.next != null) {
             fast = fast.next.next;
-            slow = slow.next.next;
+            slow = slow.next;
         }
-        return head;
+        return reverse(slow);
     }
+    private static int pairSum(Node head) {
+        Node curr=head;
+        Node fast=head;
+        Node slow=head;
+        while( fast!=null && fast.next!=null ){
+            slow=slow.next;
+            fast=fast.next.next;
+        }
+        Node temp=reverse(slow);
+        int max_sum=0;
+        while(temp!=null){
+            int sum = curr.value + temp.value;
+            max_sum=Math.max(max_sum,sum);
+            curr=curr.next;
+            temp= temp.next;
+        }
+        return max_sum;
+    }
+
+//    private static Node swapPairs(Node head) {
+//
+//    }
 
     private static int loopLength(Node head) {
         if (head == null || head.next == null) {
@@ -171,12 +189,15 @@ public class SLL {
     }
 
     public static void main(String[] args) {
-//        SLL newlist = new SLL();
-//        SLL second = new SLL();
-//        newlist.add(10);
-//        newlist.add(20);
-//        newlist.add(30);
-//        newlist.add(40);
+        SLL newlist = new SLL();
+        SLL second = new SLL();
+        newlist.add(10);
+        newlist.add(20);
+        newlist.add(30);
+        newlist.add(40);
+//        System.out.println(pairSum(newlist.head));
+//        display(middle(newlist.head));
+//        display(reverseFromMiddle(newlist.head));
 //        second.add(1);
 //        second.add(2);
 //        second.add(3);
@@ -201,22 +222,22 @@ public class SLL {
 //            temp.next=cycleNode;
 //        }
 //        System.out.println(loopLength(second.head));
-        SLL third = new SLL();
-        third.add(1);
-        third.add(2);
-//        third.add(3);
-        third.add(2);
-        third.add(1);
-        display(third.head);
-        System.out.print("From middle: ");
-        display(middle(third.head));
-//        display(recursiveReverse(third.head));
-        Node temp2= third.head;
-        System.out.println();
-        Node temp= middle(temp2);
-        display(recursiveReverse(temp));
-        System.out.print("Is Palindrome: ");
-        System.out.println(palindrome(third.head));
+//        SLL third = new SLL();
+//        third.add(1);
+//        third.add(2);
+////        third.add(3);
+//        third.add(2);
+//        third.add(1);
+//        display(third.head);
+//        System.out.print("From middle: ");
+//        display(middle(third.head));
+////        display(recursiveReverse(third.head));
+//        Node temp2= third.head;
+//        System.out.println();
+//        Node temp= middle(temp2);
+//        display(recursiveReverse(temp));
+//        System.out.print("Is Palindrome: ");
+//        System.out.println(palindrome(third.head));
 //        display(recursiveReverse(third.head));
 
 //        display(newlist.head);
