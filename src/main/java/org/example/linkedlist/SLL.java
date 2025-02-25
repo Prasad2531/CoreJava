@@ -72,6 +72,20 @@ public class SLL {
         }
         return prev;
     }
+    /*
+    To reverse a ll using recursion
+    1->2-3->null
+    solve  2->3->null
+    solve    3->null
+    Now head->next==null so return newHead= 3 ,so 3->null return |3|
+     call comes back here:     2 -> 3       --     x<-2<-3    and return newHead=3 so 3->2->x is returned
+                             head  front
+     call come here   x<-2<-3 = reverse(1.next) so curr=1
+                    front(2)=1->next     1-> 2<-3  front.next=curr   1<-2<-3 curr.next=null x<-1<-2<-3 return newHead=3
+                                         /
+                                        x
+     */
+
     private static Node recursiveReverse(Node curr){
         if(curr==null || curr.next==null){
             return curr;
@@ -109,6 +123,45 @@ public class SLL {
         }
         return false;
     }
+    private static Node swapPairs(Node head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        Node temp = head.next;
+        head.next = swapPairs(head.next.next);
+        temp.next = head;
+        return temp;
+    }
+    private static int loopLength(Node head){
+        if (head == null || head.next == null) {
+            return 0;
+        }
+        //Add your code here.
+        Node slow = head;
+        Node fast = head;
+
+        boolean flag = false;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast) {
+                flag = true;
+                break;
+            }
+        }
+        if (!flag) {
+            return 0;
+        } else {
+            int count = 1;
+            Node temp = slow;
+            while (temp.next != slow) {
+                temp = temp.next;
+                count++;
+            }
+
+            return count;
+        }
+    }
     private static int findStartofLoop(Node head){
         if(head==null || head.next==null){
             return -1;
@@ -130,17 +183,59 @@ public class SLL {
         return temp.value;
     }
     public static void main(String[] args) {
-//        SLL newlist = new SLL();
-//        SLL second = new SLL();
-//        newlist.add(10);
-//        newlist.add(20);
-//        newlist.add(30);
-//        newlist.add(40);
+        SLL newlist = new SLL();
+        SLL second = new SLL();
+        newlist.add(10);
+        newlist.add(20);
+        newlist.add(30);
+        newlist.add(40);
+//        System.out.println(pairSum(newlist.head));
+//        display(middle(newlist.head));
+//        display(reverseFromMiddle(newlist.head));
 //        second.add(1);
 //        second.add(2);
 //        second.add(3);
+//        second.add(4);
+//        second.add(5);
+//        second.add(6);
+//        second.add(7);
+//        Node cycleNode = null;
+//        Node temp=second.head;
+//        while(temp!=null){
+//            if(temp.value==2){
+//                cycleNode=temp;
+//                break;
+//            }
+//            temp=temp.next;
+//        }
+//        if(cycleNode!=null){
+//            temp=second.head;
+//            while(temp.next!=null){
+//                temp=temp.next;
+//            }
+//            temp.next=cycleNode;
+//        }
+//        System.out.println(loopLength(second.head));
+//        SLL third = new SLL();
+//        third.add(1);
+//        third.add(2);
+////        third.add(3);
+//        third.add(2);
+//        third.add(1);
+//        display(third.head);
+//        System.out.print("From middle: ");
+//        display(middle(third.head));
+////        display(recursiveReverse(third.head));
+//        Node temp2= third.head;
+//        System.out.println();
+//        Node temp= middle(temp2);
+//        display(recursiveReverse(temp));
+//        System.out.print("Is Palindrome: ");
+//        System.out.println(palindrome(third.head));
+//        display(recursiveReverse(third.head));
+
 //        display(newlist.head);
-//        display(second.head);
+//        display(second.head); //check if second is cyclic
 //        System.out.println(newlist.length());
 //        newlist.delete(2);
 //        display(newlist.head);
